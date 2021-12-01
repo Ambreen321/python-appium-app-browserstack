@@ -29,19 +29,28 @@ driver = webdriver.Remote(
     desired_capabilities=desired_cap
 )
 
-# Test case for the BrowserStack sample Android app. 
-# If you have uploaded your app, update the test case here. 
-search_element = WebDriverWait(driver, 30).until(
-    EC.element_to_be_clickable((MobileBy.ACCESSIBILITY_ID, "Search Wikipedia"))
-)
-search_element.click()
-search_input = WebDriverWait(driver, 30).until(
-    EC.element_to_be_clickable((MobileBy.ID, "org.wikipedia.alpha:id/search_src_text"))
-)
-search_input.send_keys("BrowserStack")
-time.sleep(5)
-search_results = driver.find_elements_by_class_name("android.widget.TextView")
-assert(len(search_results) > 0)
+# Test case for the corssy app. 
+
+#  Select language
+driver.find_element_by_xpath('//android.view.ViewGroup[@content-desc="btnEnglish"]/android.view.View').click()
+driver.implicitly_wait(30)
+#driver.find_element_by_xpath('//android.view.ViewGroup[@content-desc="btnArabic"]/android.view.ViewGroup').click()
+driver.find_element_by_xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.View').click()
+driver.implicitly_wait(30)
+
+
+
+#  Select already have an account
+driver.find_element_by_xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.TextView').click()
+driver.implicitly_wait(30)
+
+
+#  Login with facebook
+driver.find_element_by_class_name('android.view.View').click()
+driver.implicitly_wait(30)
+driver.find_element_by_class_name('android.widget.Button').click()
+driver.implicitly_wait(30)
+
 
 # Invoke driver.quit() after the test is done to indicate that the test is completed.
 driver.quit()
